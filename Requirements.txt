@@ -1,0 +1,9 @@
+Inputs - Word entered by user as a guess, text
+
+Outputs - Number of bulls and cows for a specific guess, win or loss state at end
+
+Tasks for user - Try to guess the word, based on bulls and cows after the first try
+
+Performance limits worth mentioning - None
+
+Assets - List of words, ASCII Bull and Cow (?)
