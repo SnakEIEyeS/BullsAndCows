@@ -1,8 +1,18 @@
+/*
+Bulls and Cows fun word game!
+This is the console excutable that makes use of the BullCow class.
+This acts as the view in an MVC pattern and is reponsible for all user interaction.
+For game logic see the FBullCowGame class.
+*/
+
+#pragma once
+
 #include <iostream>
 #include <string>
 
 #include "FBullCowGame.h"
 
+//to make syntax Unreal friendly
 using FText = std::string;
 using int32 = int;
 
@@ -12,7 +22,7 @@ FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
 
-FBullCowGame BCGame;
+FBullCowGame BCGame; //instantiate a new game, which we reuse across plays
 
 //The entry point for our game
 int main()
@@ -27,10 +37,9 @@ int main()
 	} 
 	while (bPlayAgain);
 	
-	return 0;
+	return 0; //exit the application
 }
 
-//Introduce the game
 void PrintIntro()
 {
 	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game!\n";
@@ -38,6 +47,7 @@ void PrintIntro()
 	std::cout << std::endl;
 }
 
+//plays a single game to completion
 void PlayGame()
 {
 	BCGame.Reset();
@@ -69,7 +79,7 @@ FText GetValidGuess()
 	{
 		//get a guess from the player
 		int32 CurrentTry = BCGame.GetCurrentTry();
-		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries() << ". Enter your guess: ";
 		std::getline(std::cin, Guess);
 
 		//check status and give feedback
@@ -77,22 +87,21 @@ FText GetValidGuess()
 		switch (Status)
 		{
 		case EGuessStatus::Wrong_Length:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 			break;
 
 		case EGuessStatus::Not_Isogram:
-			std::cout << "Your guess is not an isogram. Please enter an isogram - a word with no repeating letters.\n";
+			std::cout << "Your guess is not an isogram. Please enter an isogram - a word with no repeating letters.\n\n";
 			break;
 
 		case EGuessStatus::Not_Lowercase:
-			std::cout << "Please make sure all the letters in your guess are lowercase.\n";
+			std::cout << "Please make sure all the letters in your guess are lowercase.\n\n";
 			break;
 		
 		default:
 			//assume there were no errors
 			break;
 		}
-		std::cout << std::endl;
 	} while (Status != EGuessStatus::OK); //keep looping until we get no errors
 
 	return Guess;

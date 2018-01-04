@@ -1,6 +1,11 @@
+/*
+Contains declarations for class FBullCowGame, struct FBullCowCount, enum class EGuessStatus.
+*/
+
 #pragma once
 #include <string>
 
+//to make syntax Unreal friendly
 using FString = std::string;
 using int32 = int;
 
@@ -21,6 +26,10 @@ enum class EGuessStatus
 	Null_String
 };
 
+/* FBullCowGame class is used for instances of the game.
+Handles all game related functionality.
+Does not take care of the User Interface.
+*/
 class FBullCowGame
 {
 public:
@@ -35,12 +44,15 @@ public:
 	//void SetCurrentTry();
 	//void PickIsogram();
 
-	void Reset(); //TODO make a more rich return value
+	void Reset();
 	FBullCowCount SubmitValidGuess(FString Guess);
 
 private:
+	//see constructor for initialisation
 	int32 MyCurrentTry;
-	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
+
+	bool IsIsogram(FString Guess) const;
+	bool IsLowerCase(FString Guess) const;
 };
