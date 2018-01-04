@@ -1,0 +1,2 @@
+1. Ask user for desired word length.
+2. Pick isogram from a dictionary list of isograms.
